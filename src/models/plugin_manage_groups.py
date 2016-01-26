@@ -21,3 +21,20 @@ db.define_table('plugin_config',
     Field('dict_value', length=256),
     format='%(grp)s - %(dict_key)s'
     )
+
+# Following cofiguration values are defaults.
+# You can change them in db.py or other model (alphabetically after db.py, but before this model).
+# Example: to disable rights to do changes for the admin group members, set: plugins.config.admin_group=''
+
+def _():
+    from gluon.tools import PluginManager
+    plugins = PluginManager('config',
+            admin_group='admin',  # name of the admin group (all changes allowed for members). empty string to disable
+                                  # in addition changes are enabled for members of following groups:
+                                  #     plugin_config_add - change configuration structure
+                                  #     plugin_config_set - change global and group settings (if group s. will be implemented)
+                                  #     plugin_config_group - change group setting (if group s. will be implemented)
+                                  #   everybody can change his/her own setting (if user s. will be implemented)
+            )
+
+plugin_manage_groups = _()
