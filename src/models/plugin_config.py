@@ -6,22 +6,17 @@
 db.define_table('plugin_config_grp',
     Field('grp', length=16),
     Field('user_settings', 'boolean'),
+    Field('txt_label', length=92),
+    Field('txt_comment', 'text'),
     format='%(grp)s'
     )
 
 db.define_table('plugin_config_key',
     Field('plugin_config_grp_id', db.plugin_config_grp),
     Field('dict_key', length=16),
-    format='%(dict_key)s'
-    )
-
-db.define_table('plugin_config_txt',
-    Field('plugin_config_grp_id', db.plugin_config_grp),
-    Field('plugin_config_key_id', db.plugin_config_key),
-    Field('lang', length=5),
     Field('txt_label', length=92),
     Field('txt_comment', 'text'),
-    format='%(txt_label)s'
+    format='%(dict_key)s'
     )
 
 db.define_table('plugin_config_val',
